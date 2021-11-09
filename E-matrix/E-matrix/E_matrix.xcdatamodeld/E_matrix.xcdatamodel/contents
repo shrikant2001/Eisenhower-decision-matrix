@@ -5,9 +5,7 @@
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
-    <entity name="Task" representedClassName="Task" syncable="YES" codeGenerationType="class"/>
     <elements>
         <element name="Item" positionX="-63" positionY="-18" width="128" height="74"/>
-        <element name="Task" positionX="-63" positionY="-9" width="128" height="29"/>
     </elements>
 </model>

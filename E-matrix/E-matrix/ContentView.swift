@@ -12,35 +12,77 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Item.title, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
 
     var body: some View {
+        
+        let green = greenf()
+        let blue = bluef()
+        let yellow = yellowf()
+        let red = redf()
+        
         ZStack{
             Color.black
-            List {
-                ForEach(items) { item in
-                    Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+            
+            
+            VStack{
+                HStack{
+                    List(green,id : \.self){item in
+                        Text(item.title ?? "no task")
+                    }
+                    List(blue,id : \.self){item in
+                        Text(item.title ?? "no task")
+                    }
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                #if os(iOS)
-                EditButton()
-                #endif
-
-                Button(action: addItem) {
-                    Label("Add Item", systemImage: "plus")
+                HStack{
+                    List(yellow,id : \.self){item in
+                        Text(item.title ?? "no task")
+                    }
+                    List(red,id : \.self){item in
+                        Text(item.title ?? "no task")
+                    }
                 }
             }
+            
+            
         }
+    }
+    
+    func greenf() -> [Item]{
+        let greenarr = items
+        let greenarr2 = greenarr.filter{
+            $0.type == 1
+        }
+        return greenarr2
+    }
+    func bluef() -> [Item]{
+        let greenarr = items
+        let greenarr2 = greenarr.filter{
+            $0.type == 2
+        }
+        return greenarr2
+    }
+    func yellowf() -> [Item]{
+        let greenarr = items
+        let greenarr2 = greenarr.filter{
+            $0.type == 3
+        }
+        return greenarr2
+    }
+    func redf() -> [Item]{
+        let greenarr = items
+        let greenarr2 = greenarr.filter{
+            $0.type == 4
+        }
+        return greenarr2
     }
 
     private func addItem() {
         withAnimation {
             let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+            newItem.title = "task"
 
             do {
                 try viewContext.save()
